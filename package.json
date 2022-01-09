@@ -1,0 +1,19 @@
+{
+  "name": "users_with_prisma.io",
+  "version": "0.1.0",
+  "description": "User registration and updates in NodeJS, using PrismaIO to connect to database and using SOLID",
+  "main": "index.js",
+  "repository": "git@github.com:HurinBerdelon/Users_with_PrismaIO.git",
+  "author": "Fernando Cardozo <fernando_cardozo@poli.ufrj.br>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev ./src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "prisma": "^3.7.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
+  }
+}
