@@ -1,38 +1,29 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { ICreateUserDTO } from "../../DTOs/ICreateUserDTO";
-import { IResponseUserDTO } from "../../DTOs/IResponseUserDTO";
-import { IUserRepository } from "../IUsersRepository";
+import { IUsersRepository } from "../IUsersRepository";
 
-class UsersRepository implements IUserRepository {
+// UsersRepository intermediates the access between the database and the application. It's in this class where prisma is used 
+class UsersRepository implements IUsersRepository {
 
+    // the object to the repository is a instance of PrismaClient
     private repository = new PrismaClient()
 
-    async create({ name, email, username, password }: ICreateUserDTO): Promise<IResponseUserDTO> {
+    // To create a database object with prisma, we call the create method of PrismaClient.Model, feeding this method with the information required to create the object. This required information is all the is not optional and not default in schema.prisma
+    async create({ name, email, username, password }: ICreateUserDTO): Promise<User> {
         const user = await this.repository.user.create({
             data: {
                 name,
                 email,
                 password,
                 username,
-            },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                username: true,
-                avatar: true,
-                password: false,
-                createdAt: false,
-                updatedAt: false,
-                emailConfirmed: false,
-                refreshTokens: false
             }
         })
 
         return user
     }
 
-    async findById(id: string): Promise<IResponseUserDTO> {
+    // To find a information on the database we should findUnique method of PrismaClient.Model, feeding it with the object where and the attribute to filter the information. This attribute of where should be an @unique or @id from the model in schame.prisma
+    async findById(id: string): Promise<User> {
         const user = await this.repository.user.findUnique({
             where: {
                 id: id
@@ -42,7 +33,7 @@ class UsersRepository implements IUserRepository {
         return user
     }
 
-    async findByEmail(email: string): Promise<IResponseUserDTO> {
+    async findByEmail(email: string): Promise<User> {
         const user = await this.repository.user.findUnique({
             where: {
                 email: email
@@ -52,7 +43,7 @@ class UsersRepository implements IUserRepository {
         return user
     }
 
-    async findByUsername(username: string): Promise<IResponseUserDTO> {
+    async findByUsername(username: string): Promise<User> {
         const user = await this.repository.user.findUnique({
             where: {
                 username: username
@@ -62,6 +53,7 @@ class UsersRepository implements IUserRepository {
         return user
     }
 
+    // Delete method works similarly to findUnique, but instead of only bring the object, delete brings it and delete from the database
     async delete(id: string): Promise<void> {
         await this.repository.user.delete({
             where: {
