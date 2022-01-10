@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// the model represents a table in database, we should pass the name of the column, type of information and its settings, if there is. A model needs to have at least one column @id or @unique, as an unique identifier
 model User {
   id             String   @id @default(uuid())
   name           String
