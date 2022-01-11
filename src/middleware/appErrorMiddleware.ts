@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
 
+// Middleware to handle with received errors from useCase,
+// When receiving an error the server should not crash, and the error should be handled.
 export async function appErrorMiddleware(
     error: Error,
     request: Request,

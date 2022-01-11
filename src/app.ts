@@ -14,6 +14,7 @@ app.use(express.json())
 
 app.use(router)
 
+// Declaring that app is going to user appErrorMiddleware, which ensure the application will keep on running even if something goes wrong.
 app.use(appErrorMiddleware)
 
 export { app }
