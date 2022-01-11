@@ -10,6 +10,7 @@ class UsersRepository implements IUsersRepository {
 
     // To create a database object with prisma, we call the create method of PrismaClient.Model, feeding this method with the information required to create the object. This required information is all the is not optional and not default in schema.prisma
     async create({ name, email, username, password }: ICreateUserDTO): Promise<User> {
+
         const user = await this.repository.user.create({
             data: {
                 name,
