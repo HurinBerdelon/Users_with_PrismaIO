@@ -3,7 +3,7 @@ import { instanceToInstance } from 'class-transformer'
 import { IUserResponseDTO } from '../DTOs/IUserResponseDTO'
 
 // A mapper has the function of convert data objects
-// As the object of User, from prisma contains all information of its columns, and it means to contain sensible informations, as the password, we should use a mapper, to pass only the information necessery on response object
+// As the object of User, from prisma contains all information of its columns, and it means to contain sensitive informations, as the password, we should use a mapper, to pass only the information necessery on response object
 class UserMap {
 
     static toDTO({
