@@ -4,7 +4,7 @@
 
 **Functional Requirements**
 
-- [ ] Should be able to register a user
+- [x] Should be able to register a user
 - [ ] Should be able to confirm user's e-mail
 - [ ] Should be able to authenticate user with e-mail or username
 - [ ] Should be able to update user's e-mail
@@ -17,8 +17,8 @@
 
 **Business Rule**
 
-- [ ] Should not be able to create a user with e-mail already used
-- [ ] Should not be able to create a user with username already used
+- [x] Should not be able to create a user with e-mail already used
+- [x] Should not be able to create a user with username already used
 - [ ] Should not be able to authenticate a non-existent user
 - [ ] Should not be able to authenticate user with incorrect password
 - [ ] Should not be able to delete, update, logout user without being authenticated

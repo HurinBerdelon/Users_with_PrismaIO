@@ -1,12 +1,20 @@
 import 'reflect-metadata'
 import { AppError } from '../../../../errors/AppError'
+import { TokenProvider } from '../../../../shared/container/providers/generateToken/implementations/TokenProvider'
 
 import { UsersRepositoryInMemory } from '../../repositories/inMemory/UsersRepositoryInMemory'
 import { CreateUserUseCase } from "./createUserUseCase"
+import { TokensRepositoryInMemory } from '../../repositories/inMemory/ItokensRepositoryInMemory'
+import { DateProvider } from '../../../../shared/container/providers/dateProvider/implementations/DateProvider'
+import { MailProviderInMemory } from '../../../../shared/container/providers/mailProvider/inMemory/mailProviderInMemory'
 
 // Declaration of the class this tests will use
 // As the unitary test should cover only the useCase, the repository used here is a ImMemory Repository, because the real database should not be touched by tests
 let usersRepositoryInMemory: UsersRepositoryInMemory
+let tokensRepositoryInMemory: TokensRepositoryInMemory
+let mailProviderInMemory: MailProviderInMemory
+let dateProvider: DateProvider
+let tokenProvider: TokenProvider
 let createUserUseCase: CreateUserUseCase
 
 // Every test should start with describe functionality. We kind uses SOLID in test too. As this file for tests has a single responsibilty of testing the createUserUseCase.
@@ -15,10 +23,21 @@ describe('Create User Use Case', () => {
     // Before each instance of test, the useCase and the repository should be initiated
     beforeEach(() => {
         usersRepositoryInMemory = new UsersRepositoryInMemory()
-        createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory)
+        tokensRepositoryInMemory = new TokensRepositoryInMemory()
+        tokenProvider = new TokenProvider()
+        mailProviderInMemory = new MailProviderInMemory()
+        dateProvider = new DateProvider()
+        createUserUseCase = new CreateUserUseCase(
+            usersRepositoryInMemory,
+            tokensRepositoryInMemory,
+            tokenProvider,
+            dateProvider,
+            mailProviderInMemory
+        )
     })
 
-    // The first test checks if a new user can be created. A user created should have a property named 'id' and a property named 'avatar', with this second being NULL, because it's default on creation.
+    // The first test checks if a new user can be created.
+    // CreateUserUseCase returns a json message, that an e-mail has been sent
     it('should be able to create a new user', async () => {
 
         const createUserDTO = {
@@ -28,10 +47,10 @@ describe('Create User Use Case', () => {
             password: 'password'
         }
 
-        const user = await createUserUseCase.execute(createUserDTO)
+        const result = await createUserUseCase.execute(createUserDTO)
 
-        expect(user).toHaveProperty('id')
-        expect(user.avatar).toBeNull()
+        expect(result).toHaveProperty('message')
+        expect(result.message).toEqual(`A link has been sent to ${'email@test.com'} to confirm your operation!`)
     })
 
     // The second test checks if an execption will be thrown when trying to create a user with a email already in use.

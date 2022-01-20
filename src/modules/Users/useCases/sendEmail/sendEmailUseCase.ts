@@ -7,7 +7,6 @@ import { IJsonMessageDTO } from "../../DTOs/IJsonMessageDTO";
 import { ITokensRepository } from "../../repositories/ITokensRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
-import envConfig from "../../../../config/envConfig";
 
 // Type of the object received by execute method
 interface IRequest {
@@ -26,7 +25,7 @@ class SendEmailUseCase {
 
     // The constructor Injects the dependecies this class will need, which are some providers and some repositories
     constructor(
-        @inject('UserRepository')
+        @inject('UsersRepository')
         private usersRepository: IUsersRepository,
         @inject('TokensRepository')
         private tokensRepository: ITokensRepository,
