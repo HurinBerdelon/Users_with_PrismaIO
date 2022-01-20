@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .container {
+            width: 800px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        span,
+        h3 {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <img src="" alt="logo-img">
+
+        <span>Hello, {{name}} </span>
+
+        <br>
+
+        <span>Did you request <strong>deletion</strong> of your account?</span>
+        <span>Confirm your request on the link below.</span>
+        <span><a href="{{link}}">{{link}}</a></span>
+
+        <span>The link expires in 3 hours. After that time, a new link will need to be requested.</span>
+        <span>If you haven't registered, just ignore this email.</span>
+        <span><strong>Thank You</strong></span>
+
+        <h3>
+            Team | <strong> Users_With_Prisma </strong>
+        </h3>
+
+    </div>
+</body>
+
+</html>

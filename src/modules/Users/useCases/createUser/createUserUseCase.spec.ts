@@ -9,7 +9,8 @@ import { DateProvider } from '../../../../shared/container/providers/dateProvide
 import { MailProviderInMemory } from '../../../../shared/container/providers/mailProvider/inMemory/mailProviderInMemory'
 
 // Declaration of the class this tests will use
-// As the unitary test should cover only the useCase, the repository used here is a ImMemory Repository, because the real database should not be touched by tests
+// As the unitary test should cover only the useCase, the repository used here is a ImMemory Repository, 
+// because the real database should not be touched by tests
 let usersRepositoryInMemory: UsersRepositoryInMemory
 let tokensRepositoryInMemory: TokensRepositoryInMemory
 let mailProviderInMemory: MailProviderInMemory
@@ -17,7 +18,8 @@ let dateProvider: DateProvider
 let tokenProvider: TokenProvider
 let createUserUseCase: CreateUserUseCase
 
-// Every test should start with describe functionality. We kind uses SOLID in test too. As this file for tests has a single responsibilty of testing the createUserUseCase.
+// Every test should start with describe functionality. We kind uses SOLID in test too. 
+// As this file for tests has a single responsibilty of testing the createUserUseCase.
 describe('Create User Use Case', () => {
 
     // Before each instance of test, the useCase and the repository should be initiated
