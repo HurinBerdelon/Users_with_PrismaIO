@@ -3,6 +3,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../../DTOs/ICreateUserDTO";
 import { IUsersRepository } from "../IUsersRepository";
+import { DateProvider } from '../../../../shared/container/providers/dateProvider/implementations/DateProvider';
+import { container } from 'tsyringe';
+
+const dateProvider = container.resolve(DateProvider)
 
 // It's a good practice to have a InMemory Repository to implement unitary tests on this repository, no compromising the real database
 // It's a mirror of the real Repository, but here we store information in an array in memory and use array methods and attributes, instead of connect to the database with prisma
@@ -45,6 +49,17 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
     async findByUsername(username: string): Promise<User> {
         const user = this.usersrepository.find(user => user.username === username)
+
+        return user
+    }
+
+    async confirmEmail(email: string): Promise<User> {
+        const user = this.usersrepository.find(user => user.email === email)
+
+        Object.assign(user, {
+            emailConfirmed: true,
+            updatedAt: dateProvider.dateNow()
+        })
 
         return user
     }

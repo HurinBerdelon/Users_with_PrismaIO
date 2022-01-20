@@ -1,6 +1,10 @@
 import { PrismaClient, User } from "@prisma/client";
+import { container } from "tsyringe";
+import { DateProvider } from "../../../../shared/container/providers/dateProvider/implementations/DateProvider";
 import { ICreateUserDTO } from "../../DTOs/ICreateUserDTO";
 import { IUsersRepository } from "../IUsersRepository";
+
+const dateProvider = container.resolve(DateProvider)
 
 // UsersRepository intermediates the access between the database and the application. It's in this class where prisma is used 
 class UsersRepository implements IUsersRepository {
@@ -48,6 +52,20 @@ class UsersRepository implements IUsersRepository {
         const user = await this.repository.user.findUnique({
             where: {
                 username: username
+            }
+        })
+
+        return user
+    }
+
+    async confirmEmail(email: string): Promise<User> {
+        const user = await this.repository.user.update({
+            where: {
+                email: email
+            },
+            data: {
+                emailConfirmed: true,
+                updatedAt: dateProvider.dateNow()
             }
         })
 
