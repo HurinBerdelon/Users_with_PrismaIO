@@ -4,6 +4,7 @@ import { AppError } from "../../../../../errors/AppError";
 import { IDateProvider } from "../../../../../shared/container/providers/dateProvider/IDateProvider";
 import { ITokensRepository } from "../../../repositories/ITokensRepository";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { DeleteUserTokensUseCase } from "../../deleteUserTokens/deleteUserTokensUseCase";
 
 // This class is responsible to delete user's account as much as its delete token
 // The constructor inject the Users and Tokens Repository as much as the dateProvider
@@ -47,11 +48,16 @@ class DeleteUserUseCase {
             throw new AppError('Token has expired!')
         }
 
+        // Should delete All user's Tokens before delete User
+        const deleteUserTokensUseCase = new DeleteUserTokensUseCase(
+            this.usersRepository,
+            this.tokensRepository
+        )
+
+        await deleteUserTokensUseCase.execute(user.id)
+
         // Finally, the User's account is deleted and the token generated to delete account is also deleted
         await this.usersRepository.delete(user.id)
-
-        await this.tokensRepository.delete(deleteToken.id)
-
     }
 }
 
