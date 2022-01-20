@@ -27,7 +27,8 @@ model User {
 
 model Tokens {
   id        String   @id @default(uuid())
-  name      String   @unique
+  value     String   @unique
+  type      String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   expiresAt DateTime

@@ -9,6 +9,8 @@ interface IUsersRepository {
     findByEmail(email: string): Promise<User>
     findByUsername(username: string): Promise<User>
 
+    confirmEmail(email: string): Promise<User>
+
     // updateUsername(username: string): Promise<User>
     // updateName(name: string): Promise<User>
     // updateAvatar(avatar: string): Promise<User>
