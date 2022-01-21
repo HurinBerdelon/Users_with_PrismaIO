@@ -29,7 +29,7 @@ model Tokens {
   id        String   @id @default(uuid())
   value     String   @unique
   type      String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   expiresAt DateTime
   createdAt DateTime @default(now())

@@ -5,7 +5,7 @@
 **Functional Requirements**
 
 - [x] Should be able to register a user
-- [ ] Should be able to confirm user's e-mail
+- [x] Should be able to confirm user's e-mail
 - [ ] Should be able to authenticate user with e-mail or username
 - [ ] Should be able to update user's e-mail
 - [ ] Should be able to update username
@@ -13,7 +13,7 @@
 - [ ] Should be able to update user's password
 - [ ] Should be able to recover the password
 - [ ] Should be able to logout user
-- [ ] Should be able to delete user
+- [x] Should be able to delete user
 
 **Business Rule**
 

@@ -77,7 +77,7 @@ class UsersRepository implements IUsersRepository {
         await this.repository.user.delete({
             where: {
                 id: id
-            }
+            },
         })
     }
 

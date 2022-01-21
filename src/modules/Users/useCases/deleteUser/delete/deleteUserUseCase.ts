@@ -48,14 +48,6 @@ class DeleteUserUseCase {
             throw new AppError('Token has expired!')
         }
 
-        // Should delete All user's Tokens before delete User
-        const deleteUserTokensUseCase = new DeleteUserTokensUseCase(
-            this.usersRepository,
-            this.tokensRepository
-        )
-
-        await deleteUserTokensUseCase.execute(user.id)
-
         // Finally, the User's account is deleted and the token generated to delete account is also deleted
         await this.usersRepository.delete(user.id)
     }

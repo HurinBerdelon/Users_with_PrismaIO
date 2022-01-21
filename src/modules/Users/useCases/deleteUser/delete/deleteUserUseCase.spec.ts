@@ -25,7 +25,7 @@ describe('Delete User Use Case', () => {
         )
     })
 
-    // The first test checks if user is being deleted, as much as its deletion token
+    // The first test checks if user is being deleted
     it('should be able to delete an user\'s account', async () => {
         // An user is created
         const user = await usersRepositoryInMemory.create({
@@ -49,9 +49,8 @@ describe('Delete User Use Case', () => {
         // And then de method to delete is called
         await deleteUserUseCase.execute('deletion_token_valid')
 
-        // Checks if both repositories are empty, meaning the user and the token were deleted
+        // Checks if the repository is empty, meaning the user was deleted
         expect(usersRepositoryInMemory.usersrepository).toEqual([])
-        expect(tokensRepositoryInMemory.repository).toEqual([])
     })
 
     // This test checks if an error is thrown when trying to delete a non-existing user
