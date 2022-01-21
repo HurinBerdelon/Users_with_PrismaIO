@@ -15,6 +15,10 @@ class UsersRepository implements IUsersRepository {
     // To create a database object with prisma, we call the create method of PrismaClient.Model, feeding this method with the information required to create the object. This required information is all the is not optional and not default in schema.prisma
     async create({ name, email, username, password }: ICreateUserDTO): Promise<User> {
 
+        // e-mails and usernames are case insensitve, so they are converted to lowercase before save and search in database
+        email = email.toLowerCase()
+        username = username.toLowerCase()
+
         const user = await this.repository.user.create({
             data: {
                 name,
@@ -39,6 +43,9 @@ class UsersRepository implements IUsersRepository {
     }
 
     async findByEmail(email: string): Promise<User> {
+
+        email = email.toLowerCase()
+
         const user = await this.repository.user.findUnique({
             where: {
                 email: email
@@ -49,6 +56,9 @@ class UsersRepository implements IUsersRepository {
     }
 
     async findByUsername(username: string): Promise<User> {
+
+        username = username.toLowerCase()
+
         const user = await this.repository.user.findUnique({
             where: {
                 username: username
@@ -59,6 +69,9 @@ class UsersRepository implements IUsersRepository {
     }
 
     async confirmEmail(email: string): Promise<User> {
+
+        email = email.toLowerCase()
+
         const user = await this.repository.user.update({
             where: {
                 email: email

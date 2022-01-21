@@ -17,6 +17,11 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
     // To create a object here, we simply create it and push into the array, this function doesn't need to be assynchronous, but it's defined this way, because it's implementing the interface of the real repository, so it becomes a mirror repository
     async create({ name, email, username, password }: ICreateUserDTO): Promise<User> {
+
+        // e-mails and usernames are case insensitve, so they are converted to lowercase before save and search in database
+        email = email.toLowerCase()
+        username = username.toLowerCase()
+
         const user: User = {
             id: uuidv4(),
             name: name,
@@ -42,18 +47,27 @@ class UsersRepositoryInMemory implements IUsersRepository {
     }
 
     async findByEmail(email: string): Promise<User> {
+
+        email = email.toLowerCase()
+
         const user = this.usersrepository.find(user => user.email === email)
 
         return user
     }
 
     async findByUsername(username: string): Promise<User> {
+
+        username = username.toLowerCase()
+
         const user = this.usersrepository.find(user => user.username === username)
 
         return user
     }
 
     async confirmEmail(email: string): Promise<User> {
+
+        email = email.toLowerCase()
+
         const user = this.usersrepository.find(user => user.email === email)
 
         Object.assign(user, {
