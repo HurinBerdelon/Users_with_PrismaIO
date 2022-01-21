@@ -13,5 +13,8 @@ export default {
 
     // JWT configs
     JWT_SECRET: process.env.JWT_SECRET,
-    JWT_EXPIRATION: process.env.JWT_EXPIRATION
+    JWT_EXPIRATION: process.env.JWT_EXPIRATION,
+
+    // Refresh Token configs
+    Refresh_Token_Expiration: process.env.REFRESH_TOKEN_EXPIRATION
 }
