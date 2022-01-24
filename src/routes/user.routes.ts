@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 import { ConfirmEmailController } from "../modules/Users/useCases/confirmEmail/confirmEmailController";
 import { CreateUserController } from "../modules/Users/useCases/createUser/createUserController";
 import { DeleteUserController } from "../modules/Users/useCases/deleteUser/delete/deleteUserController";
@@ -13,7 +14,7 @@ const deleteUserController = new DeleteUserController()
 
 userRoutes.post('', createUserController.handle)
 userRoutes.patch('/confirm-email', confirmEmailController.handle)
-userRoutes.post('/delete-account', sendDeleteEmailController.handle)
-userRoutes.delete('/delete-account', deleteUserController.handle)
+userRoutes.post('/delete-account', ensureAuthenticated, sendDeleteEmailController.handle)
+userRoutes.delete('/delete-account', ensureAuthenticated, deleteUserController.handle)
 
 export { userRoutes }
