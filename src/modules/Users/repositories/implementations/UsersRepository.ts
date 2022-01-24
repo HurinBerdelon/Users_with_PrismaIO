@@ -148,13 +148,13 @@ class UsersRepository implements IUsersRepository {
         return user
     }
 
-    async updatePassword({ user_id, password }: IUpdateUserDTO): Promise<User> {
+    async updatePassword({ user_id, new_password }: IUpdateUserDTO): Promise<User> {
         const user = await this.repository.user.update({
             where: {
                 id: user_id
             },
             data: {
-                password: password,
+                password: new_password,
                 updatedAt: dateProvider.dateNow()
             }
         })

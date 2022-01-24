@@ -131,12 +131,12 @@ class UsersRepositoryInMemory implements IUsersRepository {
         return user
     }
 
-    async updatePassword({ user_id, password }: IUpdateUserDTO): Promise<User> {
+    async updatePassword({ user_id, new_password }: IUpdateUserDTO): Promise<User> {
 
         const user = this.usersrepository.find(user => user.id === user_id)
 
         Object.assign(user, {
-            password: password,
+            password: new_password,
             updatedAt: dateProvider.dateNow()
         })
 
