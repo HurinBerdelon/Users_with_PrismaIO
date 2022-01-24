@@ -4,19 +4,24 @@ import { AppError } from "../../../../../errors/AppError";
 import { IUpdateUserDTO } from "../../../DTOs/IUpdateUserDTO";
 import { IUserResponseDTO } from "../../../DTOs/IUserResponseDTO";
 import { UserMap } from "../../../mapper/userMap";
+import { ITokensRepository } from "../../../repositories/ITokensRepository";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { DeleteUserTokensUseCase } from "../../deleteUserTokens/deleteUserTokensUseCase";
 
 // UpdatePasswordUseCase has the simple responsibility to receive data from the controller,
 // Checks if user exists, throwing an error if not,
 // Checks if the old_password matchs, throwing an error if not,
 // Encrypt the new_password,
-// And call updatePassword function in usersRepository
+// Call updatePassword function in usersRepository 
+// And finally, after password update, delete all tokens from that user, so the authentication must be done again.
 @injectable()
 class UpdatePasswordUseCase {
 
     constructor(
         @inject('UsersRepository')
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
+        @inject('TokensRepository')
+        private tokensRepository: ITokensRepository
     ) { }
 
     async execute({ user_id, new_password, old_password }: IUpdateUserDTO): Promise<IUserResponseDTO> {
@@ -39,6 +44,10 @@ class UpdatePasswordUseCase {
             user_id: user.id,
             new_password: passwordHash
         })
+
+        const deleteUserTokens = new DeleteUserTokensUseCase(this.usersRepository, this.tokensRepository)
+
+        await deleteUserTokens.execute(user.id)
 
         return UserMap.toDTO(userUpdated)
     }

@@ -15,7 +15,7 @@ describe('Update Name Use Case', () => {
         updateNameUseCase = new UpdateNameUseCase(usersRepositoryInMemory)
     })
 
-    // This tests creates an user in memory and update its name
+    // This test creates an user in memory and update its name
     it('should be able to uptade user\'s name', async () => {
         const user = await usersRepositoryInMemory.create({
             name: 'Name Test',

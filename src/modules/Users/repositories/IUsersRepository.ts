@@ -16,7 +16,7 @@ interface IUsersRepository {
     updateName({ user_id, name }: IUpdateUserDTO): Promise<User>
     updateAvatar({ user_id, avatar }: IUpdateUserDTO): Promise<User>
     updateEmail({ user_id, email }: IUpdateUserDTO): Promise<User>
-    updatePassword({ user_id, password }: IUpdateUserDTO): Promise<User>
+    updatePassword({ user_id, new_password }: IUpdateUserDTO): Promise<User>
 
     delete(id: string): Promise<void>
 }
