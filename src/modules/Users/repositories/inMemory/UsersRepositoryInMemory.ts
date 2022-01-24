@@ -5,6 +5,7 @@ import { ICreateUserDTO } from "../../DTOs/ICreateUserDTO";
 import { IUsersRepository } from "../IUsersRepository";
 import { DateProvider } from '../../../../shared/container/providers/dateProvider/implementations/DateProvider';
 import { container } from 'tsyringe';
+import { IUpdateUserDTO } from '../../DTOs/IUpdateUserDTO';
 
 const dateProvider = container.resolve(DateProvider)
 
@@ -72,6 +73,70 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
         Object.assign(user, {
             emailConfirmed: true,
+            updatedAt: dateProvider.dateNow()
+        })
+
+        return user
+    }
+
+    async updateUsername({ user_id, username }: IUpdateUserDTO): Promise<User> {
+
+        username = username.toLowerCase()
+
+        const user = this.usersrepository.find(user => user.id === user_id)
+
+        Object.assign(user, {
+            username: username,
+            updatedAt: dateProvider.dateNow()
+        })
+
+        return user
+    }
+
+    async updateName({ user_id, name }: IUpdateUserDTO): Promise<User> {
+
+        const user = this.usersrepository.find(user => user.id === user_id)
+
+        Object.assign(user, {
+            name: name,
+            updatedAt: dateProvider.dateNow()
+        })
+
+        return user
+    }
+
+    async updateAvatar({ user_id, avatar }: IUpdateUserDTO): Promise<User> {
+
+        const user = this.usersrepository.find(user => user.id === user_id)
+
+        Object.assign(user, {
+            avatar: avatar,
+            updatedAt: dateProvider.dateNow()
+        })
+
+        return user
+    }
+
+    async updateEmail({ user_id, email }: IUpdateUserDTO): Promise<User> {
+
+        email = email.toLowerCase()
+
+        const user = this.usersrepository.find(user => user.id === user_id)
+
+        Object.assign(user, {
+            email: email,
+            updatedAt: dateProvider.dateNow()
+        })
+
+        return user
+    }
+
+    async updatePassword({ user_id, password }: IUpdateUserDTO): Promise<User> {
+
+        const user = this.usersrepository.find(user => user.id === user_id)
+
+        Object.assign(user, {
+            password: password,
             updatedAt: dateProvider.dateNow()
         })
 

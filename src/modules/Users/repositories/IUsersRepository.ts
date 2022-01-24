@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../DTOs/ICreateUserDTO";
+import { IUpdateUserDTO } from "../DTOs/IUpdateUserDTO";
 
 // The interface for the repository types with methods the repository class should have, which parameters should each method receive and which type of return it has to give
 interface IUsersRepository {
@@ -11,10 +12,11 @@ interface IUsersRepository {
 
     confirmEmail(email: string): Promise<User>
 
-    // updateUsername(username: string): Promise<User>
-    // updateName(name: string): Promise<User>
-    // updateAvatar(avatar: string): Promise<User>
-    // updatePassword(password: string): Promise<User>
+    updateUsername({ user_id, username }: IUpdateUserDTO): Promise<User>
+    updateName({ user_id, name }: IUpdateUserDTO): Promise<User>
+    updateAvatar({ user_id, avatar }: IUpdateUserDTO): Promise<User>
+    updateEmail({ user_id, email }: IUpdateUserDTO): Promise<User>
+    updatePassword({ user_id, password }: IUpdateUserDTO): Promise<User>
 
     delete(id: string): Promise<void>
 }
