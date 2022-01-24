@@ -1,6 +1,6 @@
 import 'reflect-metadata'
-import { AppError } from '../../../../errors/AppError'
-import { UsersRepositoryInMemory } from '../../repositories/inMemory/UsersRepositoryInMemory'
+import { AppError } from '../../../../../errors/AppError'
+import { UsersRepositoryInMemory } from '../../../repositories/inMemory/UsersRepositoryInMemory'
 import { UpdateNameUseCase } from './updateNameUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory

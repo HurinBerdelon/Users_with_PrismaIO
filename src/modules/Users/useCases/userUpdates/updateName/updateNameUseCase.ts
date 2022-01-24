@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../errors/AppError";
-import { IUpdateUserDTO } from "../../DTOs/IUpdateUserDTO";
-import { IUserResponseDTO } from "../../DTOs/IUserResponseDTO";
-import { UserMap } from "../../mapper/userMap";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
+import { AppError } from "../../../../../errors/AppError";
+import { IUpdateUserDTO } from "../../../DTOs/IUpdateUserDTO";
+import { IUserResponseDTO } from "../../../DTOs/IUserResponseDTO";
+import { UserMap } from "../../../mapper/userMap";
+import { IUsersRepository } from "../../../repositories/IUsersRepository";
 
 // UpdateNameUseCase has the simple responsibility to receive data from the controller,
 // checks if user exists, throwing an error if not
