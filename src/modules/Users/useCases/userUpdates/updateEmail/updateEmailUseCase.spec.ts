@@ -62,6 +62,32 @@ describe('Update Email UseCase', () => {
         expect(userUpdated.emailConfirmed).toEqual(true)
     })
 
+    // This test creates an user and a updateEmail token, but pass only the token to the useCase
+    // It is expected an "Password Missing" error to be thrown
+    it('should be able to return a "password missing" error, if missing only password', async () => {
+        const user = await usersRepositoryInMemory.create({
+            name: 'Name Test',
+            email: 'email@test.com',
+            username: 'UserTest',
+            password: await hash('password@test', 8)
+        })
+
+        const token = await tokenProvider.changeEmailToken('new_email@test.com')
+
+        await tokensRepositoryInMemory.create({
+            type: tokenType.updateEmail,
+            value: token,
+            expiresDate: dateProvider.addHours(3),
+            userId: user.id
+        })
+
+        await usersRepositoryInMemory.confirmEmail(user.email)
+
+        await expect(
+            updateEmailUseCase.execute(token, '')
+        ).rejects.toEqual(new AppError('Password Missing!', 401))
+    })
+
     // This test creates an user and an updateEmail token in memory
     // And tries to update user's e-mail with a wrong token
     // An error is expected to be thrown

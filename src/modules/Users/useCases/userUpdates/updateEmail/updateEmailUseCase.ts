@@ -11,6 +11,7 @@ import { IUsersRepository } from "../../../repositories/IUsersRepository";
 // UpdateEmailUseCase has the simple responsibility to receive data from the controller,
 // check if token exists and if it is not expired, thrown an error if not for one of that,
 // check if user exists, throwing an error if not,
+// check if password is being received, throwing an error if not,
 // check if password is correct, throwing an error if not,
 // parse the e-mail from the token
 // call updateEmail function in usersRepository
@@ -45,6 +46,10 @@ class UpdateEmailUseCase {
 
         if (!tokenValid) {
             throw new AppError('Token has expired', 401)
+        }
+
+        if (!password) {
+            throw new AppError('Password Missing!', 401)
         }
 
         const passwordMatch = await compare(password, user.password)
