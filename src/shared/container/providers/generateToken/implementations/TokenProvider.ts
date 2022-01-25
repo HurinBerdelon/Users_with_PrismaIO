@@ -39,7 +39,8 @@ class TokenProvider implements ITokenProvider {
     // changeEmailToken has a concatenation with the email in the uuid, so when receiving this token back,
     // when user click on the link sent by email, the backend can parse the email and updating it in database
     async changeEmailToken(email: string): Promise<string> {
-        return `${uuidv4}#_!${email}`
+
+        return `${uuidv4()}#_!${email}`
     }
 
 }

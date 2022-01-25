@@ -7,9 +7,11 @@ import { IJsonMessageDTO } from "../../DTOs/IJsonMessageDTO";
 import { ITokensRepository } from "../../repositories/ITokensRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { AppError } from "../../../../errors/AppError";
+import { User } from "@prisma/client";
 
 // Type of the object received by execute method
 interface IRequest {
+    user_id?: string
     token: string
     token_type: tokenType
     email: string
@@ -35,13 +37,22 @@ class SendEmailUseCase {
         private mailProvider: IMailProvider
     ) { }
 
-    async execute({ email, token, token_type, template, emailSubject, link }: IRequest): Promise<IJsonMessageDTO> {
+    async execute({ user_id, email, token, token_type, template, emailSubject, link }: IRequest): Promise<IJsonMessageDTO> {
 
         // templatePath uses resolve method from 'path' NodeJS module to parse the path where the HTML templates are stored
         const templatePath = resolve(__dirname, '..', '..', 'views', 'emails', template)
 
         // As the e-mail is going to be send to an user, we need to find it in userRepository
-        const user = await this.usersRepository.findByEmail(email)
+        let user: User
+
+        // if the user_id is received, the user must be found by its ID
+        // This allows sendMailUseCase to send an update email confirmation, because we can find the user by its ID,
+        // but send a message to another e-mail, the one user desires to update to
+        if (user_id) {
+            user = await this.usersRepository.findById(user_id)
+        } else {
+            user = await this.usersRepository.findByEmail(email)
+        }
 
         // An exception will be thrown if user is not found
         if (!user) {

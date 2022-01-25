@@ -57,6 +57,30 @@ describe('Send Mail Use Case', () => {
         expect(tokenCreated).toHaveProperty('expiresAt')
     })
 
+    // This test checks if user can be found by passing its id instead of the correct e-mail
+    it('should be able to find an user, by its Id', async () => {
+        const user = await usersRepository.create({
+            name: 'Name test',
+            email: 'email@test.com',
+            username: 'UserName',
+            password: 'password@test'
+        })
+
+        const finByID = jest.spyOn(usersRepository, 'findById')
+
+        await sendMailUseCase.execute({
+            user_id: user.id,
+            email: 'another@email.com',
+            emailSubject: 'Email Subject | Test',
+            link: 'http://localhost:3030',
+            template: 'template.hbs',
+            token: 'valid-token',
+            token_type: tokenType.recoverPassword
+        })
+
+        expect(finByID).toHaveBeenCalled()
+    })
+
     // After checking if a token was created, a e-mail should be sent, and this test is responsible for that
     // mailProviderInMemory does not send a real e-mail, so here is used Jest SpyOn functionality to check if
     // sendMail method is been Called

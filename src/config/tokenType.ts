@@ -5,6 +5,7 @@ enum tokenType {
     confirmEmail = 'ConfirmEmail',
     refreshToken = 'RefreshToken',
     recoverPassword = 'RecoverPassword',
+    updateEmail = 'UpdateEmail',
     deleteUser = 'DeleteUser'
 }
 

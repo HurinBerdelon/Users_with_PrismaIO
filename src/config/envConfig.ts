@@ -10,6 +10,7 @@ export default {
     confirmEmailURL: process.env.CONFIRM_EMAIL_URL,
     deleteUserEMAILURL: process.env.CONFIRM_DELETE_USER_URL,
     confirmEmailUpdateURL: process.env.CONFIRM_EMAIL_UPDATE_URL,
+    updateEmailURL: process.env.UPDATE_EMAIL_URL,
 
     // JWT configs
     JWT_SECRET: process.env.JWT_SECRET,
