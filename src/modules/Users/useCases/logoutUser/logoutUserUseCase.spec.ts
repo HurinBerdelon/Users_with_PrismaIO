@@ -1,7 +1,6 @@
-import { hash } from 'bcrypt'
 import 'reflect-metadata'
+import { hash } from 'bcrypt'
 import { tokenType } from '../../../../config/tokenType'
-import { AppError } from '../../../../errors/AppError'
 import { DateProvider } from '../../../../shared/container/providers/dateProvider/implementations/DateProvider'
 import { TokensRepositoryInMemory } from '../../repositories/inMemory/ItokensRepositoryInMemory'
 import { UsersRepositoryInMemory } from '../../repositories/inMemory/UsersRepositoryInMemory'
