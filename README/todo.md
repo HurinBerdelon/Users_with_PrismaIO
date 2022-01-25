@@ -7,13 +7,14 @@
 - [x] Should be able to register a user
 - [x] Should be able to confirm user's e-mail
 - [x] Should be able to authenticate user with e-mail or username
+- [ ] Should be able to refresh access token
 - [x] Should be able to update user's e-mail
 - [x] Should be able to update username
 - [x] Should be able to update name
 - [x] Should be able to add/update an avatar
 - [x] Should be able to update user's password
 - [ ] Should be able to recover the password
-- [ ] Should be able to logout user
+- [x] Should be able to logout user
 - [x] Should be able to delete user
 
 **Business Rule**
