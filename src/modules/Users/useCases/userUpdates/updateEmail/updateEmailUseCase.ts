@@ -67,6 +67,8 @@ class UpdateEmailUseCase {
 
         await this.usersRepository.confirmEmail(userUpdated.email)
 
+        await this.tokensRepository.delete(confirmationToken.id)
+
         return UserMap.toDTO(userUpdated)
     }
 }

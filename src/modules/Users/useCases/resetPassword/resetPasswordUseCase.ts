@@ -56,6 +56,8 @@ class ResetPasswordUseCase {
             new_password: passwordHash
         })
 
+        await this.tokensRepository.delete(recoverToken.id)
+
         return UserMap.toDTO(userUpdated)
     }
 }

@@ -4,6 +4,9 @@ import 'dotenv/config'
 // This file has this only responsibilty, so the other API files does not need to have this responsability
 
 export default {
+    // Application port
+    appPORT: Number(process.env.PORT),
+
     // Email configs from environmental variables
     mailProvider: process.env.MAIL,
     recoverEmailURL: process.env.RECOVER_PASSWORD_MAIL_URL,

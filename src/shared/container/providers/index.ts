@@ -1,6 +1,5 @@
 import { container } from "tsyringe";
 import envConfig from "../../../config/envConfig";
-import mailProviderConfig from "../../../config/envConfig";
 import { IDateProvider } from "./dateProvider/IDateProvider";
 import { DateProvider } from "./dateProvider/implementations/DateProvider";
 import { TokenProvider } from "./generateToken/implementations/TokenProvider";
@@ -14,7 +13,6 @@ import { EtherealMailProvider } from "./mailProvider/implementations/etherealMai
 // in container.registerInstance
 const mailProvider = {
     ethereal: container.resolve(EtherealMailProvider)
-    // AWS_SES: 
 }
 
 container.registerInstance<IMailProvider>(
