@@ -1,0 +1,905 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Users-With-Prisma API Documentation",
+        "description": "Documentation for Users-With-Prisma Example Application API",
+        "version": "0.1.0",
+        "contact": {
+            "email": "fernando_cardozo@poli.ufrj.br"
+        }
+    },
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a new User",
+                "description": "Create a temporary new user and sends a e-mail to given e-mail to confirm user registration",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User Name Sample",
+                                    "CPF": "userName",
+                                    "email": "user@userWithPrisma.com",
+                                    "password": "password@123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request/ User Already Exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/delete-account": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Send Account Deletion e-mail",
+                "description": "Send an e-mail to given e-mail (the one of user authenticated) to confirm account deletion.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "email": "user@userWithPrisma.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete a User",
+                "description": "Delete current User account",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-delete-account-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/user/confirm/email": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Confirm User's Email",
+                "description": "Route to confirm user's email",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-confirm-email-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "reponses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Token/ Token has expired/ Email Already Confirmed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found/ User not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-name": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User's Name",
+                "description": "Route to update user's name",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "name": "New User's Name"
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-password": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User's Password",
+                "description": "Route to update user's password",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "old_password": "old@password",
+                            "new_password": "new@password"
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized/ Old Password doesn't match",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-avatar": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User's Avatar",
+                "description": "Route to update user's avatar",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "images": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "Success",
+                        "conten": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-username": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User's Username",
+                "description": "Route to update user's username",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "phone": "new_username"
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized/ Username already in use",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-email": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Send Email Email to Confirm Update",
+                "description": "Route to send a email to confirm the email update",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "new_email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "new_email": "new@email.com"
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request/ Email Already Confirmed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User's Email",
+                "description": "Route to update user's email",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-update-email-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "reponses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid Token/ Token has expired/ Password Missing/ Invalid Password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/session": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate User",
+                "description": "Route used to generate an authentication token for User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "login": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "accessToken": {
+                                            "type": "string"
+                                        },
+                                        "refreshToken": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized/ Login or Password Invalid/ An message has been sent to ${user.email} to confirm your e-mail!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/session/refresh": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh User Access Token",
+                "description": "Create a New Access Token based on non-expired Refresh Token",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-refresh-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "accessToken": {
+                                            "type": "string"
+                                        },
+                                        "refreshToken": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized/ Invalid Token/ Token has Expired",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/session/logout": {
+            "delete": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout User",
+                "description": "Delete Refresh Token from User, so he cannot refresh again, making the logout",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-refresh-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/password/reset": {
+            "post": {
+                "tags": [
+                    "Password"
+                ],
+                "summary": "Send Email to recover password",
+                "description": "Route to send an e-mail to user's email to recover it's password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "email": "new@email.com"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "constent": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request/ Email Already Confirmed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found/ User not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Password"
+                ],
+                "summary": "Reset User Password",
+                "description": "Route to reset user's password",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "x-recover-password-token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "email": "new@password"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "constent": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/JsonMessage"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized/ Invalid Token/ Token has Expired/ Password Missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found/ User not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#definitions/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                }
+            }
+        },
+        "JsonMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "statusCode": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

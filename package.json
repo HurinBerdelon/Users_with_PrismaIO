@@ -25,6 +25,7 @@
     "nodemailer": "^6.7.2",
     "prisma": "^3.7.0",
     "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^4.3.0",
     "tsyringe": "^4.6.0",
     "uuid": "^8.3.2"
   },

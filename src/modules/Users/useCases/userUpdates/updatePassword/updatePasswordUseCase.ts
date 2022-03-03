@@ -35,7 +35,7 @@ class UpdatePasswordUseCase {
         const passwordMatch = await compare(old_password, user.password)
 
         if (!passwordMatch) {
-            throw new AppError('Old Password is invalid', 401)
+            throw new AppError('Old Password doesn\'t match', 401)
         }
 
         const passwordHash = await hash(new_password, 8)

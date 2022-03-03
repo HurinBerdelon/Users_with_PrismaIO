@@ -45,20 +45,20 @@ class AuthenticateUseCase {
             user = await this.usersRepository.findByEmail(login)
 
             if (!user) {
-                throw new AppError('Login or Password incorrect!')
+                throw new AppError('Login or Password incorrect!', 401)
             }
         } else {
             user = await this.usersRepository.findByUsername(login)
 
             if (!user) {
-                throw new AppError('Login or Password incorrect!')
+                throw new AppError('Login or Password incorrect!', 401)
             }
         }
 
         const passwordMatch = await compare(password, user.password)
 
         if (!passwordMatch) {
-            throw new AppError('Login or Password incorrect!')
+            throw new AppError('Login or Password incorrect!', 401)
         }
 
         if (!user.emailConfirmed) {

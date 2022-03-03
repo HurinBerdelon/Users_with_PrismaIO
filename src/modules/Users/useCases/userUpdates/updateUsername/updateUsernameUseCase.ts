@@ -28,7 +28,7 @@ class UpdateUsernameUseCase {
         const userWithUsername = await this.usersRepository.findByUsername(username)
 
         if (userWithUsername) {
-            throw new AppError('Username already in user!', 401)
+            throw new AppError('Username already in use!', 401)
         }
 
         const userUpdated = await this.usersRepository.updateUsername({
