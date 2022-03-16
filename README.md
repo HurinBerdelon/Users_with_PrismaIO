@@ -15,7 +15,7 @@
 
 Many web applications need an user's registration, so informations can be associated with the user account. From that, the goal of this project is to provide an example (and serve as a template) of how to manage user's information in a rest API using <a href="https://www.prisma.io/">Prisma.IO</a> as ORM.
 Concepts of authentication with JWT (accessToken) and refreshToken are used, to keep user authenticated in the app.
-The project is developed using concepts of <a href="https://en.wikipedia.org/wiki/SOLID/">SOLID</a> architeture, using typescript.
+The project is developed using concepts of <a href="https://en.wikipedia.org/wiki/SOLID/">SOLID</a> architecture, using typescript.
 
 ### ORM
 
@@ -163,3 +163,18 @@ In case the execution port has been kept the default (3030), the API routes docs
 <a href="http://localhost:3030/api-docs">localhost:3030/api-docs</a>
 
 <small>In Case the port has been changed, just access <code>localhost:PORT/api-docs</code></small>
+
+## Author
+
+<h3>Fernando Henrique Pereira Cardozo (HurinBerdelon)</h3>
+
+<a href="https://www.linkedin.com/in/fernando-henrique-p-cardozo-17ab84a3/" target='_blank'>
+    <img 
+      src="https://img.shields.io/badge/Linkedin-0077B5?style=for-the-badge&amp;logo=LinkedIn&amp;logoColor=white" 
+      alt="linkedin">
+</a>
+
+<a href="mailto:fernando_cardozo@poli.ufrj.br" target='_blank'>
+    <img 
+      src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=Gmail&amp;logoColor=white" alt="gmail">
+</a>

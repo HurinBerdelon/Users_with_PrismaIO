@@ -26,4 +26,3 @@
 - [x] Não deve ser possível deletar, deslogar ou atualizar um usuário não autenticado
 - [x] Não deve ser possível que um usuário inexistente recupere uma senha
 
-**Requisitos Não Funcionais**

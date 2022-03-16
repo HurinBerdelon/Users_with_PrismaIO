@@ -166,3 +166,18 @@ Caso a porta de execução da aplicação tenha sido mantida padrão (3030), a d
 <a href="http://localhost:3030/api-docs">localhost:3030/api-docs</a>
 
 <small>Caso a porta tenha sido alterada, basta acessar <code>localhost:PORT/api-docs</code></small>
+
+## Autor
+
+<h3>Fernando Henrique Pereira Cardozo (HurinBerdelon)</h3>
+
+<a href="https://www.linkedin.com/in/fernando-henrique-p-cardozo-17ab84a3/" target='_blank'>
+    <img 
+      src="https://img.shields.io/badge/Linkedin-0077B5?style=for-the-badge&amp;logo=LinkedIn&amp;logoColor=white" 
+      alt="linkedin">
+</a>
+
+<a href="mailto:fernando_cardozo@poli.ufrj.br" target='_blank'>
+    <img 
+      src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=Gmail&amp;logoColor=white" alt="gmail">
+</a>
