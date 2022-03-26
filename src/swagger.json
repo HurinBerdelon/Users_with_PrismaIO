@@ -37,7 +37,7 @@
                                 },
                                 "example": {
                                     "name": "User Name Sample",
-                                    "CPF": "userName",
+                                    "userName": "userName",
                                     "email": "user@userWithPrisma.com",
                                     "password": "password@123"
                                 }
