@@ -8,7 +8,7 @@
     </tr>
     <tr>
       <td>
-        <a href="readme_pt-br.md">🇧🇷 Portuguese</a>
+        <a href="./README/readme_pt-br.md">🇧🇷 Portuguese</a>
       </td>
     </tr>
   </table>
