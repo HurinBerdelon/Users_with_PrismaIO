@@ -3,7 +3,7 @@
 <table>
     <tr>
       <td>
-        <a href="README.md">🇺🇸 Inglês</a>
+        <a href="../README.md">🇺🇸 Inglês</a>
       </td>
     </tr>
     <tr>
