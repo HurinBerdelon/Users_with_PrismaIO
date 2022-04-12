@@ -3,7 +3,7 @@
 <table>
     <tr>
       <td>
-        <a href="README.md">🇺🇸 Inglês</a>
+        <a href="../README.md">🇺🇸 Inglês</a>
       </td>
     </tr>
     <tr>
@@ -187,4 +187,3 @@ Caso a porta de execução da aplicação tenha sido mantida padrão (3030), a d
     <img 
       src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=Gmail&amp;logoColor=white" alt="gmail">
 </a>
-
