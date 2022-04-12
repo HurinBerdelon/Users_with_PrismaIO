@@ -167,6 +167,12 @@ Caso a porta de execução da aplicação tenha sido mantida padrão (3030), a d
 
 <small>Caso a porta tenha sido alterada, basta acessar <code>localhost:PORT/api-docs</code></small>
 
+## Implementações futuras
+
+- 100% de cobertura nos testes unitários;
+- Testes End-to-End;
+- Rotas para criação de painel de controle no frontend.
+
 ## Autor
 
 <h3>Fernando Henrique Pereira Cardozo (HurinBerdelon)</h3>
@@ -181,3 +187,4 @@ Caso a porta de execução da aplicação tenha sido mantida padrão (3030), a d
     <img 
       src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=Gmail&amp;logoColor=white" alt="gmail">
 </a>
+

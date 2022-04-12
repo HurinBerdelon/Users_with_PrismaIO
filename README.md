@@ -164,6 +164,12 @@ In case the execution port has been kept the default (3030), the API routes docs
 
 <small>In Case the port has been changed, just access <code>localhost:PORT/api-docs</code></small>
 
+## Future implementations
+
+- 100% unit tests coverage;
+- Tests End-to-End;
+- Routes to create a control panel in frontend
+
 ## Author
 
 <h3>Fernando Henrique Pereira Cardozo (HurinBerdelon)</h3>
